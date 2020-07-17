@@ -1,28 +1,56 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <AppHeader
+      @createTableVisible='editTableVisible'/>
+    <DataTable
+      @editTableVisible='editTableVisible' />
+    <EditRecord
+      ref="EditRecord"
+      :editData='editData' />
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue';
+import AppHeader from './components/AppHeader.vue';
+import DataTable from './components/DataTable.vue';
+import EditRecord from './components/EditRecord.vue';
 
 export default {
+  methods: {
+    editTableVisible(row) {
+      this.editData = row;
+      this.$refs.EditRecord.toggleVisible();
+    },
+  },
+  data() {
+    return {
+      editData: [],
+    };
+  },
   name: 'App',
   components: {
-    HelloWorld,
+    AppHeader,
+    DataTable,
+    EditRecord,
   },
 };
 </script>
 
 <style lang="scss">
+body{
+  margin: 0;
+  padding: 0;
+}
+
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  position: relative;
+  font-family: 'Ubuntu', Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+  height: 100vh;
+  padding: 0 10px;
+  background: url('../src/assets/bg.jpg') no-repeat center;
+  background-size: cover;
 }
 </style>
